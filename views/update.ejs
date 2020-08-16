@@ -1,0 +1,7 @@
+<form action="/users/changePwd/<%=User._id %>" method="POST">
+    <input type="text" name="email" id="email" value="<%=User.email%>" readonly>
+    <input type="password" name="password" id="password" placeholder="Password.." required>
+    <input type="password" name="confirmPwd" id="confirmPwd" placeholder="Confirm Password.." required>
+    <button type="submit">reset</button>
+
+</form>
