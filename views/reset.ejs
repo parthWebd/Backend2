@@ -1,12 +1,12 @@
-<div>
+<link rel="stylesheet" href="/css/home.css">
+<div class="topTab"> 
     <a href="/users/signOut">Sign Out</a>
     <a href="/users/reset">Reset Password</a>
 </div>
-<p>
+
     <%if(User){%>
         
         
-        <li><%= User.email%></li>
+        <h1><%= User.email%></h1>
         
     <%}%>
-</p>

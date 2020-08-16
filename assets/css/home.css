@@ -1,0 +1,32 @@
+.topTab{
+    height: 6vh;
+    width: 100vw;
+    background-color: greenyellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+.topTab a{
+    margin: 5px;
+}
+.form {
+    margin: 10px;
+    height: 30vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form input{
+    height: 100%;
+    width: 100%;
+}
+.btn{
+    height: 100%;
+    width: 30%;
+}
+body h1{
+    text-align: center;
+}

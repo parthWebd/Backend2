@@ -7,8 +7,10 @@ const db=require('./config/mongoose');
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
-const passportGoogle=require('./config/passport-google-oauth2-strategy')
+const passportGoogle=require('./config/passport-google-oauth2-strategy');
+// to permanently store the session cookie
 const mongoStore=require('connect-mongo')(session);
+//to use flash message
 const flash=require('connect-flash');
 const customMWare=require('./config/middleware');
 
@@ -17,12 +19,15 @@ const User=require('./models/User');
 //to Use layouts
 const expressLayouts = require('express-ejs-layouts');
 
-
+// to encode the parsed values
 app.use(express.urlencoded())
 
-
+//to use static files
 app.use(express.static('./assets'));
 app.use(expressLayouts);
+
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 // to use EJS
 app.set('view engine','ejs');
