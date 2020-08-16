@@ -1,4 +1,7 @@
 const User=require('../models/User');
+//for password encryption
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports.signIn= function(req,res){
     if(req.isAuthenticated()){
@@ -49,15 +52,26 @@ module.exports.createUser= function(req,res){
         
         if(err){req.flash('error',err); return;}
         if(!user){
-            User.create(req.body,function(err,user){
-                if(err){req.flash('error',err); return;}
-                console.log(user);
+            bcrypt.hash(req.body.password, 10, function(err, hash) {
                 if(err){
-                    console.log('Error',err);
+                    console.log("error in hashing password");
                     return ;
                 }
-                return res.redirect('/users/profile');
-            })
+                // Store hash in your password DB.
+            
+                User.create({
+                    email:req.body.email,
+                    password:hash,
+                },function(err,user){
+                    if(err){req.flash('error',err); return;}
+                    console.log(user);
+                    if(err){
+                        console.log('Error',err);
+                        return ;
+                    }
+                    return res.redirect('/users/profile');
+                })
+            });
         }
         else{
             req.flash('success','email already exist: Sign in to continue')
@@ -95,11 +109,22 @@ module.exports.changePwd=function(req,res){
         return res.redirect('back');
     }
     if(req.user.id == req.params.id){
-        User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
-            console.log("I m Here")
-            req.flash('success',"Password updated successfully");
-            return res.redirect('/users/profile');
-        })
+        bcrypt.hash(req.body.password, 10, function(err, hash) {
+            if(err){
+                console.log("error in hashing password");
+                return ;
+            }
+            // Store hash in your password DB.
+            User.findByIdAndUpdate(req.params.id,{
+                email:req.body.email,
+                password:hash,
+            },function(err,user){
+                console.log("I m Here")
+                req.flash('success',"Password updated successfully");
+                return res.redirect('/users/profile');
+            })
+    });
+    
     }
     else{
         return res.status(401).send('Unauthorized');

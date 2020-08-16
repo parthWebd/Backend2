@@ -15,6 +15,12 @@ const flash=require('connect-flash');
 const customMWare=require('./config/middleware');
 
 
+//for password encryption
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+// const myPlaintextPassword = 's0/\/\P4$$w0rD';
+// const someOtherPlaintextPassword = 'not_bacon';
+
 const User=require('./models/User');
 //to Use layouts
 const expressLayouts = require('express-ejs-layouts');
